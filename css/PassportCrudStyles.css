@@ -27,88 +27,150 @@
   column-gap: 20px;
 }
 
+.card{
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: none;
+  border-radius: 0.10rem
+}
+.card-header:first-child{
+  border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0}
+.card-header{
+  padding: 0.75rem 0.75rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1)}
+.track{
+  position: relative;
+  background-color: #ddd;
+  height: 7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 70px;
+  margin-top: 50px}
+.track .step{
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  width: 25%;
+  margin-top: -18px;
+  text-align: center;
+  position: relative}
+.track .step.active:before{
+  background: #FF5722}
+.track .step::before{
+  height: 7px;
+  position: absolute;
+  content: "";
+  width: 100%;
+  left: 0;
+  top: 18px}
+.track .step.active .icon{
+  background: #ee5435;
+  color: #fff}
+.track .icon{
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  border-radius: 100%;
+  background: #ddd}
+.track .step.active .text{
+  font-weight: 400;color: #000}
+.track .text{
+  display: block;
+  margin-top: 7px
+}
+@media only screen and (max-width: 400px) {
   .card{
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-clip: border-box;
-    border: none;
-    border-radius: 0.10rem}
-  .card-header:first-child{
-    border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0}
-  .card-header{
-    padding: 0.75rem 0.75rem;
-    margin-bottom: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1)}
-  .track{position: relative;
-    background-color: #ddd;
-    height: 7px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-bottom: 70px;
-    margin-top: 50px}
-  .track .step{
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    width: 25%;
-    margin-top: -18px;
-    text-align: center;
-    position: relative}
-  .track .step.active:before{
-    background: #FF5722}
-  .track .step::before{
-    height: 7px;
-    position: absolute;
-    content: "";
-    width: 100%;
-    left: 0;
-    top: 18px}
-  .track .step.active .icon{
-    background: #ee5435;
-    color: #fff}
-  .track .icon{
+    font-size: 0.85rem;
+  }
+  .track .icon {
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
     position: relative;
     border-radius: 100%;
-    background: #ddd}
-  .track .step.active .text{
-      font-weight: 400;color: #000}
-  .track .text{
-    display: block;
-    margin-top: 7px
+    background: #ddd;
   }
+  .track .text {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 7px;
+  }
+}
 
+/* visa-processing-tracking-styles */
 
+.tracking-card{
+  width: 360px;
+  margin: 0 auto;
+}
+.tracking-item, .tracking-item-pending {
+  position: relative;
+  padding: 2rem 1.5rem 0.5rem 2.5rem;
+  font-size: 0.9rem;
+  min-height: 3rem;
+}
+.tracking-item{
+  border-left: 4px solid #ee5435;
+}
+.tracking-item-pending {
+  border-left: 4px solid #d6d6d6;
+}
+.tracking-item-pending:last-child {
+  padding-bottom: 3rem;
+}
+.tracking-item.last{
+  align-items: end;
+  padding-bottom: 0;
+}
+.tracking-icon {
+  position: absolute;
+  left: -0.67rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+}
+.tracking-item, .tracking-item-pending {
+  margin-left: 50%;
+}
+.tracking-item .tracking-content {
+  width: 100px;
+}
+.left-8rem{
+  left: -8rem;
+}
+.tracking-icon.active{
+  background-color: #ee5435;
+}
+.tracking-icon.pending{
+  background-color: #dbdbdb;
+}
+.blinker {
+  border: 2px solid #c5ecc8;
+  animation: blink 1s;
+  animation-iteration-count: infinite;
+}
+.card-body p {
+  font-size: 14px;
+}
+@keyframes blink { 50% { border-color:#fff ; }  }
 
-  @media only screen and (max-width: 360px) {
-    .card{
-      font-size: 0.85rem;
-    }
-    .track .icon {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
-      position: relative;
-      border-radius: 100%;
-      background: #ddd;
-    }
-    .track .text {
-      display: block;
-      font-size: 0.75rem;
-      margin-top: 7px;
-   }
-    }
-  
+@media only screen and (max-width: 420px) {
+  .tracking-card{
+    width: 360px;
+    margin: 0 auto;
+  }
+}
