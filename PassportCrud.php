@@ -28,7 +28,7 @@ function passportSubmissionsTable() {
   `receivedDate` varchar(220) DEFAULT NULL,
   `deliveryDate` varchar(220) NOT NULL,
   PRIMARY KEY(user_id)
-  ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  ) DEFAULT CHARSET=utf8mb4_unicode_ci;
   ";
   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
