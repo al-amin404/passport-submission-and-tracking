@@ -91,7 +91,25 @@ function crudAdminPage() {
            deliverydate ='$deliveryDate'
            WHERE user_id ='$id'
            ");
-       echo "<script>location.replace('admin.php?page=passportCrud%2FPassportCrud.php');</script>";
+       echo "<script>location.replace('admin.php?page=passport-submission-and-tracking%2FPassportCrud.php');</script>";
+      } elseif ($status == 'Failed and Returned') {
+        $deliveryDate = date("d F Y");
+        $wpdb->query(
+          "UPDATE $table_name 
+           SET 
+           name ='$name',
+           phone ='$phone',
+           passportNo ='$passportNo',
+           birthDate ='$birthDate',
+           serviceTaken ='$serviceTaken',
+           country ='$country',
+           status ='$status',
+           ref ='$ref',
+           note ='$note',
+           deliverydate ='$deliveryDate'
+           WHERE user_id ='$id'
+           ");
+       echo "<script>location.replace('admin.php?page=passport-submission-and-tracking%2FPassportCrud.php');</script>";
       } else
       $wpdb->query(
         "UPDATE $table_name 
@@ -107,13 +125,13 @@ function crudAdminPage() {
           note ='$note'
           WHERE user_id ='$id'
           ");
-      echo "<script>location.replace('admin.php?page=passportCrud%2FPassportCrud.php');</script>";
+      echo "<script>location.replace('admin.php?page=passport-submission-and-tracking%2FPassportCrud.php');</script>";
   }
 
   if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
     $wpdb->query("DELETE FROM $table_name WHERE user_id='$del_id'");
-    echo "<script>location.replace('admin.php?page=passportCrud%2FPassportCrud.php');</script>";
+    echo "<script>location.replace('admin.php?page=passport-submission-and-tracking%2FPassportCrud.php');</script>";
   }
   ?>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
@@ -158,7 +176,6 @@ function crudAdminPage() {
                 <option value="Ready to send back">Ready to Send Back</option>
                 <option value="Shipped back">Shipped to Courier</option>
                 <option value="On-hold">On-hold</option>
-                <option value="Failed">Failed</option>
             </select> <br><br>
             <textarea id="note" class="form-control w-4" name="note" maxlength="250" placeholder="Note to Customer"></textarea> <br>
             <button id="newsubmit" class="btn btn-primary" name="newsubmit" type="submit">INSERT</button>
@@ -206,7 +223,7 @@ function crudAdminPage() {
                           <td><input type='date' id='uptbirthDate' name='uptbirthDate' value='$print->birthDate'></td>
                           <td><input type='text' id='uptnote' name='uptnote' value='$print->note'></td>
                           <td><button id='uptsubmit' class='btn btn-primary' name='uptsubmit' type='submit'>Update</button>
-                          <a href='admin.php?page=passportCrud%2FPassportCrud.php'><button class='btn btn-primary' type='button'>Cancel</button></a></td>
+                          <a href='admin.php?page=passport-submission-and-tracking%2FPassportCrud.php'><button class='btn btn-primary' type='button'>Cancel</button></a></td>
                       </tr>
                       <tr>
                         <td></td>
@@ -234,6 +251,7 @@ function crudAdminPage() {
                                 <option value='Delivered'>Delivered</option>
                                 <option value='On-hold'>On-hold</option>
                                 <option value='Failed'>Failed</option>
+                                <option value='Failed and Returned'>Failed and Returned</option>
                             </select>
                         </td>
                     </tr>
