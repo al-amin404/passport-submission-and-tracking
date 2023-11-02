@@ -225,6 +225,23 @@
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Received</div>
                         </div>
                         <div class='tracking-item d-flex align-items-center'>
+                            <div class='tracking-icon active blinker'></div>  
+                            <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded position-absolute left-8rem'>Failed Processing</div>
+                        </div>
+                        <div class='tracking-item-pending d-flex align-items-center'>
+                            <div class='tracking-icon pending'></div>
+                            <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Returned to customer</div>
+                        </div>
+                    </div>
+                  ";
+                } elseif ($status == 'Failed and Returned') {
+                    echo "
+                    <div class='tracking-list d-flex d-sm-flex flex-column justify-content-center mb-6 w-100'>
+                        <div class='tracking-item d-flex d-sm-flex align-items-center'>
+                            <div class='tracking-icon active'></div>  
+                            <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Received</div>
+                        </div>
+                        <div class='tracking-item d-flex align-items-center'>
                             <div class='tracking-icon active'></div>  
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded position-absolute left-8rem'>Failed Processing</div>
                         </div>
