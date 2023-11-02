@@ -29,7 +29,6 @@
                                 <p class='px-3 py-2 m-0 shadow-sm bg-body rounded'>Country: <strong><?php echo $country; ?></strong></p>
                                 <p class='px-3 py-2 m-0 shadow-sm bg-body rounded'>Status: <strong><?php echo $status; ?></strong></p>
                                 <p class='px-3 py-2 m-0 shadow-sm bg-body rounded'>Ref: <strong><?php echo $ref; ?></strong></p>
-                                
                             </div>
                             <div class='d-inline-flex column-gap-2 my-2'>
                                 <?php
@@ -37,7 +36,12 @@
                                     echo "<p class='note text-wrap p-3 m-0 w-3 shadow-sm bg-body rounded'>$print->note</p>";
                                 };
                                 ?>
-                                <p class='rvDate p-2 m-0 align-self-end'><small class='text-body-secondary'>Received on: <?php echo $print->receivedDate; ?></small></p>
+                                <p class='rvDate p-2 m-0 align-self-end'><small class='text-body-secondary'>Received on: <?php echo $print->receivedDate; ?></small></p>&nbsp;
+                                <?php
+                                if ($print->deliveryDate !== '') {
+                                    echo "<p class='rvDate p-2 m-0 align-self-end'><small class='text-body-secondary'>Delivered on: $print->deliveryDate</small></p>";
+                                };
+                                ?>
                             </div>
                         </div>
                         <div class='d-flex flex-column justify-content-evenly align-items-center px-2'>
