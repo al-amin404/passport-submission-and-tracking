@@ -3,7 +3,7 @@
 Plugin Name: Passport Submission & Tracking
 Plugin URI: https://www.facebook.com/alamin440/
 Description: A simple plugin that allows you to perform Create (INSERT), Read (SELECT), Update and Delete submissions, and let users track their submissions. This plugin is specifically made for Travel agencies(eg. LimpidTravels.com) to keep records of their client's passport submissions 
-Version: 1.1.0
+Version: 1.2.0
 Author: AL AMIN
 Author URI: https://facebook.com/alamin440/
 */ 
