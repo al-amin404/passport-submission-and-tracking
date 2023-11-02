@@ -146,8 +146,8 @@
 .tracking-item, .tracking-item-pending {
   margin-left: 50%;
 }
-.tracking-item .tracking-content {
-  width: 100px;
+.tracking-item .tracking-content, .tracking-content {
+  width: 100px!important;
 }
 .left-8rem{
   left: -8rem;
