@@ -56,7 +56,7 @@ function searchUsers() {
     $table_name = $wpdb->prefix . 'passport_submissions';
 
     $srch_id = $_POST['passportNo'];
-    $result = $wpdb->get_results("SELECT * FROM $table_name WHERE passportNo='$srch_id'");
+    $result = $wpdb->get_results("SELECT * FROM $table_name WHERE passportNo='$srch_id' ORDER BY user_id DESC");
 
     if ($result) { ?>
         <header class='card-header'> <h3>My Passports / Tracking</h3> </header> <?php
@@ -67,87 +67,12 @@ function searchUsers() {
         $serviceTaken = $print->serviceTaken;
         $status = $print->status;
         $note = $print->note;
-        ?>
-
-        <div class='container'>
-            <div>
-                <?php echo "<h6>Passport No: <mark><strong>$passportNo</strong></mark> </h6>"; ?>
-              <div class='track'> <?php
-                if ($status == 'Received') {
-                  echo "
-                  <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                  <div class='step'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> Processing</span> </div>
-                  <div class='step'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                  <div class='step'> <span class='icon'> <i class='fa fa-box'></i> </span> <span class='text'>Returned to Customer</span> </div>
-                  ";
-                } elseif ($status == 'On-hold') {
-                  echo "
-                  <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                  <div class='step active'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> On-hold</span> </div>
-                  <div class='step'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                  <div class='step'> <span class='icon'> <i class='fa fa-box'></i> </span> <span class='text'>Returned to Customer</span> </div>
-                ";
-                } elseif ($status == 'Processing') {
-                    echo "
-                    <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                    <div class='step active'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> Processing</span> </div>
-                    <div class='step'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                    <div class='step'> <span class='icon'> <i class='fa fa-box'></i> </span> <span class='text'>Returned to Customer</span> </div>
-                  ";
-                } elseif ($status == 'Failed') {
-                  echo "
-                  <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                  <div class='step active'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> Processing</span> </div>
-                  <div class='step'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                  <div class='step active'> <span class='icon'> <i class='fas fa-exclamation'></i> </span> <span class='text'>Failed & Returned</span> </div>
-                ";
-                } elseif ($status == 'Shipped back') {
-                echo "
-                <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                <div class='step active'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> Processing</span> </div>
-                <div class='step active'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                <div class='step active'> <span class='icon'> <i class='fa fa-box'></i> </span> <span class='text'>Delivered to Customer</span> </div>
-                ";
-                } elseif ($status == 'Delivered') {
-                  echo "
-                  <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                  <div class='step active'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> Processing</span> </div>
-                  <div class='step active'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                  <div class='step active'> <span class='icon'> <i class='fa fa-box'></i> </span> <span class='text'>Delivered to Customer</span> </div>
-                  ";
-                  } else {
-                    echo "
-                    <div class='step active'> <span class='icon'> <i class='fa fa-check'></i> </span> <span class='text'>Received</span> </div>
-                    <div class='step active'> <span class='icon'> <i class='fa fa-clock'></i> </span> <span class='text'> Processing</span> </div>
-                    <div class='step active'> <span class='icon'> <i class='fa fa-clipboard-check'></i> </span> <span class='text'> Work Done </span> </div>
-                    <div class='step '> <span class='icon'> <i class='fa fa-box'></i> </span> <span class='text'>Returned to Customer</span> </div>
-                  ";
-                }
-                ?>
-              </div>
-                <?php
-                  echo "
-                    <div class='card'>
-                      <div class='card-body row'>
-                          <div class='col'> Name:<br><strong>$name</strong></div>
-                          <div class='col'> Service Taken:<br><strong>$serviceTaken</strong></div>
-                          <div class='col'> Status:<br><strong>$status</strong></div>
-                          <div class='col'> Mobile:<br><strong>$phone</strong></div>
-                      </div>
-                    </div><br> 
-                  ";
-                  if ($note != "") {
-                    echo "
-                    <div class='container border border-secondary-subtle p-2'><p class='notes'><strong>Note:</strong> $note</p></div><br>
-                    ";
-                  }
-                ?>
-            </div>
-        </div>
-<?php
+        if($serviceTaken == 'Visa Processing') {
+          include 'tracking-visa-processing.php'; 
+        } else include 'tracking-manpower.php';
       }
     } else {
-      echo "<strong><h4>No results found.</h4></strong>";
+      echo "<strong><h4>No results found. Check your Passport number and Try again.</h4></strong>";
     }
   }
 
