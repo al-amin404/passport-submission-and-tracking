@@ -26,6 +26,7 @@ function passportSubmissionsTable() {
   `ref` varchar(50) DEFAULT NULL,
   `note` varchar(250) DEFAULT NULL,
   `receivedDate` varchar(220) DEFAULT NULL,
+  `deliveryDate` varchar(220) NOT NULL,
   PRIMARY KEY(user_id)
   ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
   ";
@@ -73,21 +74,40 @@ function crudAdminPage() {
     $status = $_POST['uptstatus'];
     $ref = $_POST['uptref'];
     $note = $_POST['uptnote'];
-    $wpdb->query(
-       "UPDATE $table_name 
-        SET 
-        name ='$name',
-        phone ='$phone',
-        passportNo ='$passportNo',
-        birthDate ='$birthDate',
-        serviceTaken ='$serviceTaken',
-        country ='$country',
-        status ='$status',
-        ref ='$ref',
-        note ='$note'
-        WHERE user_id ='$id'
-        ");
-    echo "<script>location.replace('admin.php?page=passportCrud%2FPassportCrud.php');</script>";
+      if ($status == 'Delivered'){
+        $deliveryDate = date("d F Y");
+        $wpdb->query(
+          "UPDATE $table_name 
+           SET 
+           name ='$name',
+           phone ='$phone',
+           passportNo ='$passportNo',
+           birthDate ='$birthDate',
+           serviceTaken ='$serviceTaken',
+           country ='$country',
+           status ='$status',
+           ref ='$ref',
+           note ='$note',
+           deliverydate ='$deliveryDate'
+           WHERE user_id ='$id'
+           ");
+       echo "<script>location.replace('admin.php?page=passportCrud%2FPassportCrud.php');</script>";
+      } else
+      $wpdb->query(
+        "UPDATE $table_name 
+          SET 
+          name ='$name',
+          phone ='$phone',
+          passportNo ='$passportNo',
+          birthDate ='$birthDate',
+          serviceTaken ='$serviceTaken',
+          country ='$country',
+          status ='$status',
+          ref ='$ref',
+          note ='$note'
+          WHERE user_id ='$id'
+          ");
+      echo "<script>location.replace('admin.php?page=passportCrud%2FPassportCrud.php');</script>";
   }
 
   if (isset($_GET['del'])) {
@@ -100,9 +120,10 @@ function crudAdminPage() {
   <style>
     <?php include 'css/PassportCrudStyles.css'; ?>
   </style>
-
+  
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <div class="container justify-content-center">
+  
+    <div class="container justify-content-center">
         <h2>Passport Submission Entry</h2>
     
         <form action="" method="post">
@@ -112,7 +133,8 @@ function crudAdminPage() {
               <input type="text" id="passportNo" class="form-control w-4" name="passportNo" placeholder="Passport Number" required>
             </div> <br>
             <div class="flex">
-              <input type="tel" id="phone" class="form-control w-4" name="phone" maxlength="11" placeholder="Mobile Number">
+              <input type="tel" id="phone" class="form-control w-3" name="phone" maxlength="11" placeholder="Mobile Number">&nbsp
+              <label for="birthDate">Date of Birth</label>
               <input type="date" id="birthDate" class="form-control w-4" name="birthDate">
             </div> <br>
             <div class="flex">
@@ -122,13 +144,17 @@ function crudAdminPage() {
                   <option value="Visa Processing">Visa Processing</option>
               </select> 
               <input type="text" id="country" class="form-control w-2" name="country" placeholder="Enter Country Name (Service Taken for)" required>
-              <input type="text" id="ref" class="form-control w-2" name="ref" placeholder="Reference" required>
+              <input type="text" id="ref" class="form-control w-2" name="ref" placeholder="Reference">
             </div> <br>
             <select id="status" class="custom-select custom-select-sm" name="status" required>
                 <option selected>Select Status</option>
                 <option value="Received">Received</option>
                 <option value="Processing">Processing</option>
                 <option value="Processing Done">Process Done</option>
+                <option value="Mofa">Mofa</option>
+                <option value="Fingerprint Done">Fingerprint Done</option>
+                <option value="Embassy Submited">Embassy Submited</option>
+                <option value="BMET Manpower">BMET Manpower</option>
                 <option value="Ready to send back">Ready to Send Back</option>
                 <option value="Shipped back">Shipped to Courier</option>
                 <option value="On-hold">On-hold</option>
@@ -141,7 +167,7 @@ function crudAdminPage() {
     </div>
     <br>
     <br>
-    <div class="position-relative" style="z-index: 1;">
+<div class="position-relative" style="z-index: 1;">
     <?php
             if (isset($_GET['upt'])) {
                 $upt_id = $_GET['upt'];
@@ -158,7 +184,7 @@ function crudAdminPage() {
                   $note = $print->note;
                 }
                 echo "
-                <table class='wp-list-table widefat striped'>
+              <table class='wp-list-table widefat striped'>
                 <thead>
                     <tr>
                     <th>UID</th>
@@ -172,23 +198,23 @@ function crudAdminPage() {
                 </thead>
                 <tbody>
                     <form action='' method='post'>
-                    <tr>
-                        <td>$print->user_id <input type='hidden' id='uptid' name='uptid' value='$print->user_id'></td>
-                        <td><input type='text' id='uptname' name='uptname' value='$print->name'></td>
-                        <td><input type='tel' id='uptphone' name='uptphone' value='$print->phone'></td>
-                        <td><input type='hidden' id='uptpassportNo' name='uptpassportNo' value='$print->passportNo'>$print->passportNo</td>
-                        <td><input type='date' id='uptbirthDate' name='uptbirthDate' value='$print->birthDate'></td>
-                        <td><input type='text' id='uptnote' name='uptnote' value='$print->note'></td>
-                        <td><button id='uptsubmit' class='btn btn-primary' name='uptsubmit' type='submit'>Update</button>
-                        <a href='admin.php?page=passportCrud%2FPassportCrud.php'><button class='btn btn-primary' type='button'>Cancel</button></a></td>
-                    </tr>
-                    <tr>
+                      <tr>
+                          <td>$print->user_id <input type='hidden' id='uptid' name='uptid' value='$print->user_id'></td>
+                          <td><input type='text' id='uptname' name='uptname' value='$print->name'></td>
+                          <td><input type='tel' id='uptphone' name='uptphone' value='$print->phone'></td>
+                          <td><input type='hidden' id='uptpassportNo' name='uptpassportNo' value='$print->passportNo'>$print->passportNo</td>
+                          <td><input type='date' id='uptbirthDate' name='uptbirthDate' value='$print->birthDate'></td>
+                          <td><input type='text' id='uptnote' name='uptnote' value='$print->note'></td>
+                          <td><button id='uptsubmit' class='btn btn-primary' name='uptsubmit' type='submit'>Update</button>
+                          <a href='admin.php?page=passportCrud%2FPassportCrud.php'><button class='btn btn-primary' type='button'>Cancel</button></a></td>
+                      </tr>
+                      <tr>
                         <td></td>
                         <td>
                             <select id='uptserviceTaken' class='custom-select custom-select-sm' name='uptserviceTaken' required>
                                 <option value='$print->serviceTaken'selected>$print->serviceTaken</option>
-                                <option value='manpower'>Manpower</option>
-                                <option value='visa-processing'>Visa Processing</option>
+                                <option value='Manpower'>Manpower</option>
+                                <option value='Visa Processing'>Visa Processing</option>
                             </select>
                         </td>
                         <td><input type='text' id='uptcountry' name='uptcountry' value='$print->country'></td>
@@ -199,6 +225,10 @@ function crudAdminPage() {
                                 <option value='Received'>Received</option>
                                 <option value='Processing'>Processing</option>
                                 <option value='Processing Done'>Process Done</option>
+                                <option value='Mofa'>Mofa</option>
+                                <option value='Fingerprint Done'>Fingerprint Done</option>
+                                <option value='Embassy Submited'>Embassy Submited</option>
+                                <option value='BMET Manpower'>BMET Manpower</option>
                                 <option value='Ready to send back'>Ready to Send Back</option>
                                 <option value='Shipped back'>Shipped to Courier</option>
                                 <option value='Delivered'>Delivered</option>
@@ -209,14 +239,15 @@ function crudAdminPage() {
                     </tr>
                     </form>
                 </tbody>
-                </table>";
+              </table>";
             }
         ?>
         <br>
         <br>
   <?php
+  //ListAllRecordsForAdmin
   require_once('listingAllSubmissions-template.php');
 }
-
+//FrontendTracking
 require_once('tracking.php');
 
