@@ -1,8 +1,9 @@
 <div class='mx-2 my-4 shadow p-3 bg-body-white rounded'>
-        <div>
-            <?php echo "<h6>Passport No: <mark><strong>$passportNo</strong></mark> </h6>"; 
+        <div class="styles-lg">
+            <div>
+            <?php echo "<h6>Passport No: <mark><strong>$passportNo</strong></mark></h6>";
             echo "
-            <div class='card'>
+            <div class='card '>
                 <div class='card-body row'>
                     <div class='col'> Name:<br><p><strong>$name</strong></p></div>
                     <div class='col'> Service Taken:<br><p><strong>$serviceTaken</strong></p></div>
@@ -17,6 +18,7 @@
             ";
             }
             ?>
+            </div>
             <div class='tracking-div'><?php
                 if ($status == 'Received') {
                   echo "
@@ -112,7 +114,7 @@
                             <div class='tracking-icon pending'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded position-absolute left-8rem'>Process Done</div>
                         </div>
-                        <div class='tracking-item-pending d-flex align-items-center'>
+                        <div class='tracking-item-pending last d-flex align-items-center'>
                             <div class='tracking-icon pending'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Delivered</div>
                         </div>
@@ -145,7 +147,7 @@
                             <div class='tracking-icon pending'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded position-absolute left-8rem'>Process Done</div>
                         </div>
-                        <div class='tracking-item-pending d-flex align-items-center'>
+                        <div class='tracking-item-pending last d-flex align-items-center'>
                             <div class='tracking-icon pending'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Delivered</div>
                         </div>
@@ -178,7 +180,7 @@
                             <div class='tracking-icon active blinker'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded position-absolute left-8rem'>Process Done</div>
                         </div>
-                        <div class='tracking-item-pending d-flex align-items-center'>
+                        <div class='tracking-item-pending last d-flex align-items-center'>
                             <div class='tracking-icon pending'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Delivered</div>
                         </div>
@@ -228,7 +230,7 @@
                             <div class='tracking-icon active blinker'></div>  
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded position-absolute left-8rem'>Failed Processing</div>
                         </div>
-                        <div class='tracking-item-pending d-flex align-items-center'>
+                        <div class='tracking-item-pending last d-flex align-items-center'>
                             <div class='tracking-icon pending'></div>
                             <div class='tracking-content shadow-sm p-2 bg-body-tertiary rounded'>Returned to customer</div>
                         </div>
