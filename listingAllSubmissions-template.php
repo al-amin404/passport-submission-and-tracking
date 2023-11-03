@@ -44,10 +44,14 @@
                                 ?>
                             </div>
                         </div>
-                        <div class='d-flex flex-column justify-content-evenly align-items-center px-2'>
-                            <a href='admin.php?page=passport-submission-and-tracking%2FPassportCrud.php&upt=<?php echo $print->user_id; ?>'><button class='btn btn-success' type='button'>Update</button></a>
-                            <a href='admin.php?page=passport-submission-and-tracking%2FPassportCrud.php&del=<?php echo $print->user_id; ?>'><button class='btn btn-danger' type='button'>Delete</button></a>
-                        </div>
+                        <?php 
+                            if ($status !== 'Delivered' && $status !== 'Failed and Returned') { ?>
+                                <div class='d-flex flex-column justify-content-evenly align-items-center px-2'>
+                                    <a href='admin.php?page=passport-submission-and-tracking%2FPassportCrud.php&upt=<?php echo $print->user_id; ?>'><button class='btn btn-success' type='button'>Update</button></a>
+                                    <a href='admin.php?page=passport-submission-and-tracking%2FPassportCrud.php&del=<?php echo $print->user_id; ?>'><button class='btn btn-danger' type='button'>Delete</button></a>
+                                </div> 
+                          <?php  }                          
+                        ?>
                     </div>
                 </div><br>
                 <?php
