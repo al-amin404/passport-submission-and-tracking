@@ -132,8 +132,8 @@
 .tracking-item-pending:last-child {
   padding-bottom: 3rem;
 }
-.tracking-item.last{
-  align-items: end;
+.tracking-item.last, .tracking-item-pending.last{
+  align-items: end!important;
   padding-bottom: 0;
 }
 .tracking-icon {
@@ -172,5 +172,12 @@
   .tracking-card{
     width: 360px;
     margin: 0 auto;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .styles-lg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 }
