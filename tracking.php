@@ -1,9 +1,9 @@
 <?php
 
 // Front-end Tracking
-add_shortcode('my_crud_display_shortcode', 'crudVisitorPage');
+add_shortcode('my_tracking_display_shortcode', 'VisitorTrackingPage');
 
-function crudVisitorPage() {
+function VisitorTrackingPage() {
   global $wpdb;
   $table_name = $wpdb->prefix . 'passport_submissions';
   ?>
