@@ -2,11 +2,16 @@
 /*
 Plugin Name: Passport Submission & Tracking
 Plugin URI: https://www.facebook.com/alamin440/
-Description: A simple plugin that allows you to perform Create (INSERT), Read (SELECT), Update and Delete submissions, and let users track their submissions. This plugin is specifically made for Travel agencies(eg. LimpidTravels.com) to keep records of their client's passport submissions 
+Description: This simple plugin allows you to store client's submission details, and let users track their submissions. This plugin is specifically made for Travel agencies(eg. LimpidTravels.com) to keep records of their client's passport submissions 
 Version: 1.2.0
 Author: AL AMIN
 Author URI: https://facebook.com/alamin440/
 */ 
+
+// Increment the plugin version
+if (get_option('passport_submission_plugin_version') != '1.0.1') {
+  update_option('passport_submission_plugin_version', '1.2.0');
+}
 
 register_activation_hook(__FILE__, 'passportSubmissionsTable');
 
@@ -28,7 +33,7 @@ function passportSubmissionsTable() {
   `receivedDate` varchar(220) DEFAULT NULL,
   `deliveryDate` varchar(220) NOT NULL,
   PRIMARY KEY(user_id)
-  ) DEFAULT CHARSET=utf8mb4_unicode_ci;
+  ) DEFAULT CHARSET= $charset_collate;
   ";
   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -74,25 +79,7 @@ function crudAdminPage() {
     $status = $_POST['uptstatus'];
     $ref = $_POST['uptref'];
     $note = $_POST['uptnote'];
-      if ($status == 'Delivered'){
-        $deliveryDate = date("d F Y");
-        $wpdb->query(
-          "UPDATE $table_name 
-           SET 
-           name ='$name',
-           phone ='$phone',
-           passportNo ='$passportNo',
-           birthDate ='$birthDate',
-           serviceTaken ='$serviceTaken',
-           country ='$country',
-           status ='$status',
-           ref ='$ref',
-           note ='$note',
-           deliverydate ='$deliveryDate'
-           WHERE user_id ='$id'
-           ");
-       echo "<script>location.replace('admin.php?page=passport-submission-and-tracking%2FPassportCrud.php');</script>";
-      } elseif ($status == 'Failed and Returned') {
+      if ($status == 'Delivered' || $status == 'Failed and Returned') {
         $deliveryDate = date("d F Y");
         $wpdb->query(
           "UPDATE $table_name 
@@ -267,5 +254,6 @@ function crudAdminPage() {
   require_once('listingAllSubmissions-template.php');
 }
 //FrontendTracking
+//use this shortcode in the page where you want to add tracking functionalities -> [my_tracking_display_shortcode]
 require_once('tracking.php');
 
