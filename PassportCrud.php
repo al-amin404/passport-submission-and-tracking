@@ -45,7 +45,7 @@ add_action('admin_menu', 'addAdminPageContent');
 add_shortcode('my_crud_shortcode', 'crudAdminPage');
 
 function addAdminPageContent() {
-    add_menu_page('Passport Submissions', 'Passport Submissions', 'manage_options' ,__FILE__, 'crudAdminPage', 'dashicons-id', 6);
+    add_menu_page('Passport Submissions', 'Passport Submissions', 'edit_posts' ,__FILE__, 'crudAdminPage', 'dashicons-id', 6);
   }
 
 function crudAdminPage() {
