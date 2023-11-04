@@ -3,15 +3,10 @@
 Plugin Name: Passport Submission & Tracking
 Plugin URI: https://www.facebook.com/alamin440/
 Description: This simple plugin allows you to store client's submission details, and let users track their submissions. This plugin is specifically made for Travel agencies(eg. LimpidTravels.com) to keep records of their client's passport submissions 
-Version: 1.2.0
+Version: 1.2.1
 Author: AL AMIN
 Author URI: https://facebook.com/alamin440/
 */ 
-
-// Increment the plugin version
-if (get_option('passport_submission_plugin_version') != '1.0.1') {
-  update_option('passport_submission_plugin_version', '1.2.0');
-}
 
 register_activation_hook(__FILE__, 'passportSubmissionsTable');
 
@@ -35,9 +30,22 @@ function passportSubmissionsTable() {
   PRIMARY KEY(user_id)
   ) DEFAULT CHARSET= $charset_collate;
   ";
+
+  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+  // Check if the table needs to be created or updated
   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
+  } else {
+    // Table exists; check if an update is needed
+    $current_version = get_option('passport_submission_plugin_version');
+    if (version_compare($current_version, '1.2.1', '<')) {
+      $alter_sql = "ALTER TABLE $table_name ADD COLUMN deliveryDate varchar(220) NOT NULL AFTER receivedDate";
+      // Execute the SQL statement
+      $wpdb->query($alter_sql);
+      // Update the plugin version option
+      update_option('passport_submission_plugin_version', '1.2.1');
+    }
   }
 }
 
